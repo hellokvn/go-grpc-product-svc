@@ -22,7 +22,7 @@ func main() {
 		log.Fatalln("Failed to listing:", err)
 	}
 
-	fmt.Printf("Run Product Svc on %v", port)
+	fmt.Println("Run Product Svc on", port)
 
 	s := handlers.Server{
 		H: h,
