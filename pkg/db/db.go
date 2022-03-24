@@ -20,6 +20,7 @@ func Init(url string) Handler {
 	}
 
 	db.AutoMigrate(&models.Product{})
+	db.AutoMigrate(&models.StockDecreaseLog{})
 
 	return Handler{db}
 }
