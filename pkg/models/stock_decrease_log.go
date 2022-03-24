@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type StockDecreaseLog struct {
 	gorm.Model
-	Id           int32 `json:"id" gorm:"primaryKey"`
-	OrderId      int32 `json:"order_id"`
-	ProductRefer int32 `json:"product_id"`
+	Id           int64 `json:"id" gorm:"primaryKey"`
+	OrderId      int64 `json:"order_id"`
+	ProductRefer int64 `json:"product_id"`
 }

@@ -14,29 +14,29 @@ service ProductService {
 
 message CreateProductRequest {
   string name = 1;
-  int32 stock = 2;
-  int32 price = 3;
+  int64 stock = 2;
+  int64 price = 3;
 }
 
 message CreateProductResponse {
-  int32 status = 1;
+  int64 status = 1;
   string error = 2;
-  int32 id = 3;
+  int64 id = 3;
 }
 
 // FindOne
 
 message FindOneData {
-  int32 id = 1;
+  int64 id = 1;
   string name = 2;
-  int32 stock = 3;
-  int32 price = 4;
+  int64 stock = 3;
+  int64 price = 4;
 }
 
-message FindOneRequest { int32 id = 1; }
+message FindOneRequest { int64 id = 1; }
 
 message FindOneResponse {
-  int32 status = 1;
+  int64 status = 1;
   string error = 2;
   FindOneData data = 3;
 }
@@ -44,11 +44,11 @@ message FindOneResponse {
 // DecreaseStock
 
 message DecreaseStockRequest {
-  int32 id = 1;
-  int32 orderId = 2;
+  int64 id = 1;
+  int64 orderId = 2;
 }
 
 message DecreaseStockResponse {
-  int32 status = 1;
+  int64 status = 1;
   string error = 2;
 }

@@ -3,7 +3,6 @@ package services
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/hellokvn/go-grpc-product-svc/pkg/db"
@@ -38,8 +37,6 @@ func (s *Server) CreateProduct(ctx context.Context, req *pb.CreateProductRequest
 }
 
 func (s *Server) FindOne(ctx context.Context, req *pb.FindOneRequest) (*pb.FindOneResponse, error) {
-	log.Println("FindOne", req)
-
 	var product models.Product
 
 	if result := s.H.DB.First(&product, req.Id); result.Error != nil {
