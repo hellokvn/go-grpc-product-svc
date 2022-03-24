@@ -1,4 +1,4 @@
-package handlers
+package services
 
 import (
 	"context"
@@ -6,21 +6,13 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/hellokvn/go-grpc-product-svc/pkg/db"
 	"github.com/hellokvn/go-grpc-product-svc/pkg/models"
 	pb "github.com/hellokvn/go-grpc-product-svc/pkg/pb"
-	"gorm.io/gorm"
 )
 
-type handler struct {
-	DB *gorm.DB
-}
-
-func New(db *gorm.DB) handler {
-	return handler{db}
-}
-
 type Server struct {
-	H handler
+	H db.Handler
 }
 
 func (s *Server) CreateProduct(ctx context.Context, req *pb.CreateProductRequest) (*pb.CreateProductResponse, error) {
