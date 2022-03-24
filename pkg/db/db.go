@@ -8,17 +8,18 @@ import (
 	"gorm.io/gorm"
 )
 
-func Init() *gorm.DB {
-	dbURL := "postgres://kevin@localhost:5432/tasks"
+type Handler struct {
+	DB *gorm.DB
+}
 
-	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
+func Init(url string) Handler {
+	db, err := gorm.Open(postgres.Open(url), &gorm.Config{})
 
 	if err != nil {
 		log.Fatalln(err)
 	}
 
 	db.AutoMigrate(&models.Product{})
-	db.AutoMigrate(&models.StockDecreaseLog{})
 
-	return db
+	return Handler{db}
 }

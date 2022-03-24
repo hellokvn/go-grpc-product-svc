@@ -6,15 +6,14 @@ import (
 	"net"
 
 	"github.com/hellokvn/go-grpc-product-svc/pkg/db"
-	handlers "github.com/hellokvn/go-grpc-product-svc/pkg/handlers"
 	pb "github.com/hellokvn/go-grpc-product-svc/pkg/pb"
+	services "github.com/hellokvn/go-grpc-product-svc/pkg/services"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	port := ":50051"
-	DB := db.Init()
-	h := handlers.New(DB)
+	port := ":50052"
+	h := db.Init("postgres://kevin@localhost:5432/product_svc")
 
 	lis, err := net.Listen("tcp", port)
 
@@ -22,9 +21,9 @@ func main() {
 		log.Fatalln("Failed to listing:", err)
 	}
 
-	fmt.Println("Run Product Svc on", port)
+	fmt.Println("Product Svc on", port)
 
-	s := handlers.Server{
+	s := services.Server{
 		H: h,
 	}
 
