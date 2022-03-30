@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 
+	"github.com/hellokvn/go-grpc-product-svc/pkg/config"
 	"github.com/hellokvn/go-grpc-product-svc/pkg/db"
 	pb "github.com/hellokvn/go-grpc-product-svc/pkg/pb"
 	services "github.com/hellokvn/go-grpc-product-svc/pkg/services"
@@ -12,16 +13,21 @@ import (
 )
 
 func main() {
-	port := ":50052"
-	h := db.Init("postgres://kevin@localhost:5432/product_svc")
+	c, err := config.LoadConfig()
 
-	lis, err := net.Listen("tcp", port)
+	if err != nil {
+		log.Fatalln("Failed at config", err)
+	}
+
+	h := db.Init(c.DBUrl)
+
+	lis, err := net.Listen("tcp", c.Port)
 
 	if err != nil {
 		log.Fatalln("Failed to listing:", err)
 	}
 
-	fmt.Println("Product Svc on", port)
+	fmt.Println("Product Svc on", c.Port)
 
 	s := services.Server{
 		H: h,

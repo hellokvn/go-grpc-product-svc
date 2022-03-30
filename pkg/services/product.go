@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	"github.com/hellokvn/go-grpc-product-svc/pkg/db"
@@ -15,8 +14,6 @@ type Server struct {
 }
 
 func (s *Server) CreateProduct(ctx context.Context, req *pb.CreateProductRequest) (*pb.CreateProductResponse, error) {
-	fmt.Println("CreateProduct", req)
-
 	var product models.Product
 
 	product.Name = req.Name
@@ -60,8 +57,6 @@ func (s *Server) FindOne(ctx context.Context, req *pb.FindOneRequest) (*pb.FindO
 }
 
 func (s *Server) DecreaseStock(ctx context.Context, req *pb.DecreaseStockRequest) (*pb.DecreaseStockResponse, error) {
-	fmt.Println("DecreaseStock", req)
-
 	var product models.Product
 
 	if result := s.H.DB.First(&product, req.Id); result.Error != nil {
@@ -81,7 +76,6 @@ func (s *Server) DecreaseStock(ctx context.Context, req *pb.DecreaseStockRequest
 	var log models.StockDecreaseLog
 
 	if result := s.H.DB.Where(&models.StockDecreaseLog{OrderId: req.OrderId}).First(&log); result.Error == nil {
-		fmt.Println("STOCK", result.Error, result)
 		return &pb.DecreaseStockResponse{
 			Status: http.StatusConflict,
 			Error:  "Stock already decreased",
