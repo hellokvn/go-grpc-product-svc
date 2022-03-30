@@ -28,7 +28,7 @@ func (s *Server) CreateProduct(ctx context.Context, req *pb.CreateProductRequest
 	}
 
 	return &pb.CreateProductResponse{
-		Status: 200,
+		Status: http.StatusCreated,
 		Id:     product.Id,
 	}, nil
 }
@@ -51,7 +51,7 @@ func (s *Server) FindOne(ctx context.Context, req *pb.FindOneRequest) (*pb.FindO
 	}
 
 	return &pb.FindOneResponse{
-		Status: 200,
+		Status: http.StatusOK,
 		Data:   data,
 	}, nil
 }
@@ -92,6 +92,6 @@ func (s *Server) DecreaseStock(ctx context.Context, req *pb.DecreaseStockRequest
 	s.H.DB.Create(&log)
 
 	return &pb.DecreaseStockResponse{
-		Status: 200,
+		Status: http.StatusOK,
 	}, nil
 }
